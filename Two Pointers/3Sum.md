@@ -67,40 +67,23 @@ To optimize the solution, we can follow a two-pointer approach combined with sor
 This approach reduces the time complexity to O(n^2).
 
 **Step 4: Walk-through**
-Now, let's walk through the optimized solution using the initial example.
 
-Example 1:
-```
-Input: nums = [-1,0,1,2,-1,-4]
-```
+Let's walk through the optimized solution using the initial example [-1, 0, 1, 2, -1, -4].
 
-1. Sort the array: `[-4, -1, -1, 0, 1, 2]`.
-2. Initialize the result set: `result = []`.
-3. Iterate through each element in the array:
-   - For `i = 0` (value = -4):
-     - Initialize `left = 1` and `right = 5`.
-     - Compute the sum: `-4 + -1 + 2 = -3`.
-     - Since the sum is less than zero, increment `left` (now `left = 2`).
-     - Compute the sum again: `-4 + -1 + 1 = -4`.
-     - Since the sum is equal to zero, add the triplet `[-4, -1, 1]` to the result set.
-   - For `i = 1` (value = -1):
-     - Initialize `left = 2` and `right = 5`.
-     - Compute the sum: `-1 + -1 + 2 = 0`.
-     - Since the sum is equal to zero, add the triplet `[-1, -1, 2]` to the result set.
-   - For `i = 2` (value = -1):
-     - Initialize `left = 3` and `right = 5`.
-     - Compute the sum: `-1 + 0 + 
+1. Sort the array: nums = [-4, -1, -1, 0, 1, 2]
+2. Iterate through the array from index 0 to n - 2:
+   - For each element nums[i]:
+     - Set left pointer (l) to i + 1
+     - Set right pointer (r) to n - 1
+     - While l < r:
+       - Calculate the sum = nums[i] + nums[l] + nums[r]
+       - If sum == 0, add [nums[i], nums[l], nums[r]] to the result
+       - If sum < 0, increment l
+       - If sum > 0, decrement r
+       - Skip duplicate elements by incrementing l or decrementing r until we find a different element
 
-2 = 1`.
-     - Since the sum is greater than zero, decrement `right` (now `right = 4`).
-     - Compute the sum again: `-1 + 0 + 1 = 0`.
-     - Since the sum is equal to zero, add the triplet `[-1, 0, 1]` to the result set.
-   - For `i = 3` (value = 0):
-     - Initialize `left = 4` and `right = 5`.
-     - Compute the sum: `0 + 1 + 2 = 3`.
-     - Since the sum is greater than zero, decrement `right` (now `right = 3`).
-     - No further calculations needed since the array is sorted.
-4. Return the result set: `[[-4, -1, 1], [-1, -1, 2], [-1, 0, 1]]`.
+The result would be [[-1, -1, 2], [-1, 0, 1]].
+
 
 **Step 5: Implementation**
 Now, let's write the code for the optimized solution in C#. I'll explain each step of the implementation as we go.
